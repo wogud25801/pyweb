@@ -120,9 +120,9 @@ def answer_delete(request, answer_id):
 @login_required(login_url='common:login_view')
 def vote_question(request, question_id):
     # 질문 추천
-    question = Question.object.get(id=question_id)
+    question = Question.objects.get(id=question_id)
     if request.user == question.author:
-        messages.error(request, "본인이 작성한 글은 추천할 수 없습니다")
+        messages.error(request, "본인이 작성한 글은 추천할 수 없습니다.")
     else:
-        question.voter.add(request.user)        # 추천 1 증가
+        question.voter.add(request.user)   #추천 1 증가
     return redirect('board:detail', question_id=question_id)
