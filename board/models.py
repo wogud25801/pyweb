@@ -21,3 +21,16 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.content
+
+# 댓글 모델
+class Comment(models.Model):
+    content = models.TextField()                                        # 댓글 내용
+    create_date = models.DateTimeField()                                # 댓글 수정일
+    modify_date = models.DateTimeField(null=True, blank=True)           # 답글 수정일
+    author = models.ForeignKey(User, on_delete=models.CASCADE)          # 외래키
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)    # 댓글이 달린 질문
+    answer = models.ForeignKey(Answer, null=True, blank= True,
+                               on_delete=models.CASCADE)                # 댓글이 달린 답변
+
+    def __str__(self):
+        return self.content
